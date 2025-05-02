@@ -35,15 +35,14 @@ object RetrofitClient {
     }
 
     @Singleton
-@get:Provides
-val retrofitService: Retrofit by lazy {
-    Retrofit.Builder()
-        .build(BASE_USL)
-        .client(httpClient)
-
-        .addConverterFactery(json.asConverterFactory("application/x-www-form-urlencoded".toMediaType()))
-        .build()
-}
+    @get:Provides
+    val retrofitService: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_USL) //
+            .client(httpClient)
+            .addConverterFactory(json.asConverterFactory("application/x-www-form-urlencoded".toMediaType())) // исправлено
+            .build()
+    }
     @Singleton
     @get:Provides
     val imageService: ImageService by lazy {
